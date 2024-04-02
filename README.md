@@ -1,1 +1,1 @@
-# Spring Boot with MongoDB, Docker, Kubernetes & AWS Demo
+# Spring Boot with MongoDB, Docker and AWS Integration
