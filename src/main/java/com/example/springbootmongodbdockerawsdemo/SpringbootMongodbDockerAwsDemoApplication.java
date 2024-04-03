@@ -58,9 +58,9 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 		));
     }
 
-     public void printGroceryItems() {
-         groceryItemRepo.findAll().forEach(item -> printGroceryItemDetails(item));
-     }
+	public void printGroceryItems() {
+		groceryItemRepo.findAll().forEach(item -> printGroceryItemDetails(item));
+	}
 
 	public void printGroceryItemsByCategory(String category) {
 		List<GroceryItem> list = groceryItemRepo.findAll(category);
