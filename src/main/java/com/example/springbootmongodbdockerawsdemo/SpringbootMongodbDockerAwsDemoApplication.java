@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.example.springbootmongodbdockerawsdemo.model.GroceryItem;
+import com.example.springbootmongodbdockerawsdemo.repository.CustomGroceryItemRepositoryImpl;
 import com.example.springbootmongodbdockerawsdemo.repository.GroceryItemRepository;
 
 @SpringBootApplication
@@ -17,6 +18,9 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 
 	@Autowired
 	GroceryItemRepository groceryItemRepo;
+
+	@Autowired
+    CustomGroceryItemRepositoryImpl customGroceryItemRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootMongodbDockerAwsDemoApplication.class, args);
@@ -32,8 +36,10 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 		printGroceryItemsByCategory("millets");
 		System.out.println("\nPrinting Grocery Item (Whole Wheat Biscuit)...");
 		printGroceryItemByName("Whole Wheat Biscuit");
-		System.out.println("\nUpdating a Category name...");
-		updateCategoryName("snacks", "munchies");
+		System.out.println("\nUpdating Grocery Items' Category...");
+		updateGroceryItemCategory("snacks", "munchies");
+		System.out.println("\nUpdating a Grocery Item's Quantity...");
+		updateGroceryItemQuantity("Bonny Cheese Crackers Plain", 10);
 		System.out.println("\nDeleting a Grocery Item...");
 		deleteGroceryItem("Kodo Millet");
 		System.out.println("\nPrinting Grocery Items count...");
@@ -72,7 +78,7 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 		printGroceryItemDetails(item);
 	}
 
-	public void updateCategoryName(String oldCategoryName, String newCategoryName) {         
+	public void updateGroceryItemCategory(String oldCategoryName, String newCategoryName) {         
 		List<GroceryItem> list = groceryItemRepo.findAll(oldCategoryName);
 		list.forEach(item -> {
 			item.setCategory(newCategoryName);
@@ -82,10 +88,15 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
          
 		if(itemsUpdated != null) {
 			System.out.println(
-				"Successfully updated the Category of " + itemsUpdated.size() + " Items from \"" + 
+				"Updated Category of " + itemsUpdated.size() + " Items from \"" + 
 				oldCategoryName + "\" to \"" + newCategoryName + "\"."
 			);
 		}
+	}
+
+	public void updateGroceryItemQuantity(String name, int newQuantity) {
+		customGroceryItemRepo.updateGroceryItemQuantity(name, newQuantity);
+		System.out.println("Updated Quantity of " + name + " to " + newQuantity + ".");
 	}
 
 	public void deleteGroceryItem(String id) {
