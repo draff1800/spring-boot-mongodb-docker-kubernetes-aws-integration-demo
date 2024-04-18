@@ -1,5 +1,7 @@
 package com.example.springbootmongodbdockerawsdemo.repository;
 
+import com.example.springbootmongodbdockerawsdemo.model.GroceryItem;
+
 public interface CustomGroceryItemRepository {
-    void updateGroceryItemQuantity(String name, int newQuantity);
+    GroceryItem updateGroceryItemQuantity(String name, int newQuantity);
 }
