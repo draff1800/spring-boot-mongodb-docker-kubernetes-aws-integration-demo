@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.example.springbootmongodbdockerawsdemo.model.GroceryItem;
-import com.example.springbootmongodbdockerawsdemo.repository.CustomGroceryItemRepositoryImpl;
 import com.example.springbootmongodbdockerawsdemo.repository.GroceryItemRepository;
+import com.example.springbootmongodbdockerawsdemo.repository.impl.CustomGroceryItemRepositoryImpl;
 
 @SpringBootApplication
 @EnableMongoRepositories
@@ -20,7 +20,7 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 	GroceryItemRepository groceryItemRepo;
 
 	@Autowired
-    CustomGroceryItemRepositoryImpl customGroceryItemRepo;
+	CustomGroceryItemRepositoryImpl customGroceryItemRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootMongodbDockerAwsDemoApplication.class, args);
@@ -28,41 +28,36 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 
 	@Override
 	public void run(String... args) {
-		System.out.println("\nCreating Grocery Items...");
+		System.out.println("\nCreating Grocery Item/s...");
 		createGroceryItems();
-		System.out.println("\nPrinting Grocery Items...");
+		System.out.println("\nPrinting Grocery Item/s...");
 		printGroceryItems();
-		System.out.println("\nPrinting Grocery Items (millets Category)...");
+		System.out.println("\nPrinting Grocery Item/s (millets Category)...");
 		printGroceryItemsByCategory("millets");
 		System.out.println("\nPrinting Grocery Item (Whole Wheat Biscuit)...");
 		printGroceryItemByName("Whole Wheat Biscuit");
-		System.out.println("\nUpdating Grocery Items' Category...");
+		System.out.println("\nUpdating Grocery Item/s' Category...");
 		updateGroceryItemCategory("snacks", "munchies");
 		System.out.println("\nUpdating a Grocery Item's Quantity...");
 		updateGroceryItemQuantity("Bonny Cheese Crackers Plain", 10);
 		System.out.println("\nDeleting a Grocery Item...");
 		deleteGroceryItem("Kodo Millet");
-		System.out.println("\nPrinting Grocery Items count...");
+		System.out.println("\nPrinting Grocery Item/s count...");
 		printGroceryItemsCount();
 	}
 
-    void createGroceryItems() {
-        groceryItemRepo.save(new GroceryItem(
-			"Whole Wheat Biscuit1", "Whole Wheat Biscuit1", 5, "snacks"
-		));
-        groceryItemRepo.save(new GroceryItem(
-			"Kodo Millet", "XYZ Kodo Millet healthy", 2, "millets"
-		));
-        groceryItemRepo.save(
-			new GroceryItem("Dried Red Chilli", "Dried Whole Red Chilli", 2, "spices"
-		));
-        groceryItemRepo.save(new GroceryItem(
-			"Pearl Millet", "Healthy Pearl Millet", 1, "millets"
-		));
-        groceryItemRepo.save(new GroceryItem(
-			"Cheese Crackers", "Bonny Cheese Crackers Plain", 6, "snacks"
-		));
-    }
+	void createGroceryItems() {
+		groceryItemRepo.save(new GroceryItem(
+				"Whole Wheat Biscuit1", "Whole Wheat Biscuit1", 5, "snacks"));
+		groceryItemRepo.save(new GroceryItem(
+				"Kodo Millet", "XYZ Kodo Millet healthy", 2, "millets"));
+		groceryItemRepo.save(
+				new GroceryItem("Dried Red Chilli", "Dried Whole Red Chilli", 2, "spices"));
+		groceryItemRepo.save(new GroceryItem(
+				"Pearl Millet", "Healthy Pearl Millet", 1, "millets"));
+		groceryItemRepo.save(new GroceryItem(
+				"Cheese Crackers", "Bonny Cheese Crackers Plain", 6, "snacks"));
+	}
 
 	public void printGroceryItems() {
 		groceryItemRepo.findAll().forEach(item -> printGroceryItemDetails(item));
@@ -72,25 +67,24 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 		List<GroceryItem> list = groceryItemRepo.findAll(category);
 		list.forEach(item -> System.out.println("Name: " + item.getName() + ", Quantity: " + item.getQuantity()));
 	}
-     
+
 	public void printGroceryItemByName(String name) {
 		GroceryItem item = groceryItemRepo.findItemByName(name);
 		printGroceryItemDetails(item);
 	}
 
-	public void updateGroceryItemCategory(String oldCategoryName, String newCategoryName) {         
+	public void updateGroceryItemCategory(String oldCategoryName, String newCategoryName) {
 		List<GroceryItem> list = groceryItemRepo.findAll(oldCategoryName);
 		list.forEach(item -> {
 			item.setCategory(newCategoryName);
 		});
-         
+
 		List<GroceryItem> itemsUpdated = groceryItemRepo.saveAll(list);
-         
-		if(itemsUpdated != null) {
+
+		if (itemsUpdated != null) {
 			System.out.println(
-				"Updated Category of " + itemsUpdated.size() + " Items from \"" + 
-				oldCategoryName + "\" to \"" + newCategoryName + "\"."
-			);
+					"Updated Category of " + itemsUpdated.size() + " Item/s from \"" +
+							oldCategoryName + "\" to \"" + newCategoryName + "\".");
 		}
 	}
 
@@ -111,9 +105,8 @@ public class SpringbootMongodbDockerAwsDemoApplication implements CommandLineRun
 
 	public void printGroceryItemDetails(GroceryItem item) {
 		System.out.println(
-			"Name: " + item.getName() + " | " +
-			"Quantity: " + item.getQuantity() + " | " +
-			"Category: " + item.getCategory()
-		);
+				"Name: " + item.getName() + " | " +
+						"Quantity: " + item.getQuantity() + " | " +
+						"Category: " + item.getCategory());
 	}
 }
