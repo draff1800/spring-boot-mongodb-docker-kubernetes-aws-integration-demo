@@ -10,6 +10,7 @@ import lombok.Setter;
 public class GroceryItem {
 
     @Id
+    @Getter
     private String id;
     @Getter
     private String name;
