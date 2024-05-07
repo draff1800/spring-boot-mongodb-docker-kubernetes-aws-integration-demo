@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface GroceryItemService {
     List<GroceryItem> getGroceryItems(String category);
-    GroceryItem getGroceryItemByName(String name);
+    GroceryItem getGroceryItem(String name);
     GroceryItem createGroceryItem(GroceryItem groceryItem);
     List<GroceryItem> updateGroceryItemsCategory(String oldCategory, String newCategory);
     GroceryItem updateGroceryItemQuantity(String name, int newQuantity);
-    void deleteGroceryItem(String id);
+    void deleteGroceryItem(String name);
 }

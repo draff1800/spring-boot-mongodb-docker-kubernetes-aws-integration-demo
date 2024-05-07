@@ -29,7 +29,7 @@ public class GroceryItemServiceImpl implements GroceryItemService {
         }
     }
 
-    public GroceryItem getGroceryItemByName(String name) {
+    public GroceryItem getGroceryItem(String name) {
         return groceryItemRepository.findItemByName(name);
     }
 
@@ -48,7 +48,7 @@ public class GroceryItemServiceImpl implements GroceryItemService {
         return customGroceryItemRepository.updateGroceryItemQuantity(name, newQuantity);
     }
 
-    public void deleteGroceryItem(String id) {
-        groceryItemRepository.deleteById(id);
+    public void deleteGroceryItem(String name) {
+        groceryItemRepository.deleteByName(name);
     }
 }

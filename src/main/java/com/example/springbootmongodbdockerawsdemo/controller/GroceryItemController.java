@@ -28,9 +28,9 @@ public class GroceryItemController {
         return groceryItemServiceImpl.getGroceryItems(category);
     }
 
-    @GetMapping("/name/{name}")
-    public GroceryItem getGroceryItemByName(@PathVariable String name) {
-        return groceryItemServiceImpl.getGroceryItemByName(name);
+    @GetMapping("/{name}")
+    public GroceryItem getGroceryItem(@PathVariable String name) {
+        return groceryItemServiceImpl.getGroceryItem(name);
     }
 
     @PostMapping
@@ -45,7 +45,7 @@ public class GroceryItemController {
         return groceryItemServiceImpl.updateGroceryItemsCategory(oldCategory, newCategory);
     }
 
-    @PutMapping("/name/{name}")
+    @PutMapping("/{name}")
     public GroceryItem updateGroceryItemQuantity(
             @PathVariable String name,
             @RequestParam int newQuantity) {
@@ -53,7 +53,7 @@ public class GroceryItemController {
     }
 
     @DeleteMapping
-    public void deleteGroceryItem(@RequestParam String id) {
-        groceryItemServiceImpl.deleteGroceryItem(id);
+    public void deleteGroceryItem(@RequestParam String name) {
+        groceryItemServiceImpl.deleteGroceryItem(name);
     }
 }
