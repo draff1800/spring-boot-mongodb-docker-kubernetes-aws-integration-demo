@@ -24,13 +24,8 @@ public class GroceryItemController {
     GroceryItemServiceImpl groceryItemServiceImpl;
 
     @GetMapping
-    public List<GroceryItem> getAllGroceryItems() {
-        return groceryItemServiceImpl.getAllGroceryItems();
-    }
-
-    @GetMapping("/category/{category}")
-    public List<GroceryItem> getGroceryItemsByCategory(@PathVariable String category) {
-        return groceryItemServiceImpl.getGroceryItemsByCategory(category);
+    public List<GroceryItem> getGroceryItems(@RequestParam(required = false) String category) {
+        return groceryItemServiceImpl.getGroceryItems(category);
     }
 
     @GetMapping("/name/{name}")

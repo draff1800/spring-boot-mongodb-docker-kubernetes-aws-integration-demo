@@ -21,12 +21,12 @@ public class GroceryItemServiceImpl implements GroceryItemService {
     @Autowired
     private CustomGroceryItemRepository customGroceryItemRepository;
 
-    public List<GroceryItem> getAllGroceryItems() {
-        return groceryItemRepository.findAll();
-    }
-
-    public List<GroceryItem> getGroceryItemsByCategory(String category) {
-        return groceryItemRepository.findAll(category);
+    public List<GroceryItem> getGroceryItems(String category) {
+        if (category == null) {
+            return groceryItemRepository.findAll();
+        } else {
+            return groceryItemRepository.findAll(category);
+        }
     }
 
     public GroceryItem getGroceryItemByName(String name) {

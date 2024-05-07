@@ -5,8 +5,7 @@ import com.example.springbootmongodbdockerawsdemo.model.GroceryItem;
 import java.util.List;
 
 public interface GroceryItemService {
-    List<GroceryItem> getAllGroceryItems();
-    List<GroceryItem> getGroceryItemsByCategory(String category);
+    List<GroceryItem> getGroceryItems(String category);
     GroceryItem getGroceryItemByName(String name);
     GroceryItem createGroceryItem(GroceryItem groceryItem);
     List<GroceryItem> updateGroceryItemsCategory(String oldCategory, String newCategory);
